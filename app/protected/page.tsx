@@ -1,7 +1,22 @@
-import FetchDataSteps from "@/components/tutorial/fetch-data-steps";
 import { createClient } from "@/utils/supabase/server";
 import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
+import React from "react";
+import { Clock, BarChart2, Calendar, BookOpen, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import ProductivityStats from "@/components/dashboard/productivity_stats";
+import RecentTopics from "@/components/dashboard/recent_topics";
+import WeeklyOverview from "@/components/dashboard/weekly_overview";
+import DailyGoal from "@/components/dashboard/daily_goal";
+import CurrentSession from "@/components/dashboard/current_session";
+import NavBar from "@/components/navbar";
 
 export default async function ProtectedPage() {
   const supabase = createClient();
@@ -15,24 +30,31 @@ export default async function ProtectedPage() {
   }
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <div className="w-full">
-        <div className="bg-accent text-sm p-3 px-5 rounded-md text-foreground flex gap-3 items-center">
-          <InfoIcon size="16" strokeWidth={2} />
-          This is a protected page that you can only see as an authenticated
-          user
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-[#f2e9de] p-8 font-sans">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <Card className="bg-[#1d2d35] text-[#f9f4e8] col-span-full lg:col-span-1">
+            <CurrentSession />
+          </Card>
+
+          <Card className="relative bg-[#f9f4e8] shadow-md">
+            <DailyGoal />
+          </Card>
+
+          <Card className="relative bg-[#f9f4e8] shadow-md">
+            <WeeklyOverview />
+          </Card>
+
+          <Card className="relative bg-[#f9f4e8] shadow-md">
+            <RecentTopics />
+          </Card>
+
+          <Card className="relative bg-[#f9f4e8] shadow-md">
+            <ProductivityStats />
+          </Card>
         </div>
       </div>
-      <div className="flex flex-col gap-2 items-start">
-        <h2 className="font-bold text-2xl mb-4">Your user details</h2>
-        <pre className="text-xs font-mono p-3 rounded border max-h-32 overflow-auto">
-          {JSON.stringify(user, null, 2)}
-        </pre>
-      </div>
-      <div>
-        <h2 className="font-bold text-2xl mb-4">Next steps</h2>
-        <FetchDataSteps />
-      </div>
-    </div>
+    </>
   );
 }
