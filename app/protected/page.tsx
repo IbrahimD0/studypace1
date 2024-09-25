@@ -1,16 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
-import { InfoIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import React from "react";
-import { Clock, BarChart2, Calendar, BookOpen, Lock } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Card } from "@/components/ui/card";
 import ProductivityStats from "@/components/dashboard/productivity_stats";
 import RecentTopics from "@/components/dashboard/recent_topics";
 import WeeklyOverview from "@/components/dashboard/weekly_overview";
@@ -25,6 +16,7 @@ export default async function ProtectedPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // if user is not signed in, redirect to sign-in page
   if (!user) {
     return redirect("/sign-in");
   }
