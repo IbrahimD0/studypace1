@@ -37,19 +37,21 @@ export default function CurrentSession() {
         </DialogTrigger>{" "}
       </CardContent>
 
-      {/* Pop Up dialog. like a modal */}
-      {/* todo: change the color of the "modal" */}
-      <DialogContent className="bg-secondary">
+      {/* Pop Up dialog, like a modal */}
+      <DialogContent
+        className="bg-secondary"
+        aria-labelledby="dialog-title" // Adding aria-labelledby
+        aria-describedby="dialog-description" // Adding aria-describedby
+      >
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
+          <DialogTitle id="dialog-title">Are you absolutely sure?</DialogTitle>
+          <DialogDescription id="dialog-description">
             This action cannot be undone. This will permanently delete your
             account and remove your data from our servers.
           </DialogDescription>
         </DialogHeader>
 
-        {/* dummy information just so we can see what it looks like */}
-        {/* todo: maybe make a seperate component with the actual functunality to adding a session and render as children */}
+        {/* Dummy information just so we can see what it looks like */}
         <div className="mt-4">
           <p className="text-lg">Session Tracking Information:</p>
           <ul className="list-disc list-inside">
@@ -61,7 +63,7 @@ export default function CurrentSession() {
           </ul>
         </div>
 
-        {/* Buttons to handle differant Functunalites */}
+        {/* Buttons to handle different functionalities */}
         <div className="flex justify-end gap-3 mt-10">
           <Button onClick={handleCancel} variant="destructive">
             Cancel
