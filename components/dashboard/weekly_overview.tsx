@@ -1,6 +1,7 @@
 import React from "react";
 import { CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Calendar } from "lucide-react";
+import { weekDays } from "@/lib/constants";
 
 export default function WeeklyOverview() {
   return (
@@ -13,17 +14,15 @@ export default function WeeklyOverview() {
       </CardHeader>
       <CardContent>
         <div className="flex items-end justify-between h-24">
-          {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map(
-            (day, index) => (
-              <div key={day} className="flex flex-col items-center">
-                <div
-                  className="w-6 bg-[#c4a484] rounded-sm"
-                  style={{ height: `${Math.random() * 100}%` }}
-                ></div>
-                <span className="mt-2 text-xs">{day}</span>
-              </div>
-            )
-          )}
+          {weekDays.map(({ id, name }) => (
+            <div key={id} className="flex flex-col items-center">
+              <div
+                className="w-6 bg-[#c4a484] rounded-sm"
+                style={{ height: `${Math.random() * 100}%` }}
+              ></div>
+              <span className="mt-2 text-xs">{name}</span>
+            </div>
+          ))}
         </div>
       </CardContent>
     </div>

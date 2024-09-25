@@ -1,26 +1,20 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import {
-  BookOpen,
-  Bell,
-  User,
-  LogOut,
-  Settings,
-  HelpCircle,
-} from "lucide-react";
+import { BookOpen, Bell, User } from "lucide-react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { signOutAction } from "@/app/actions";
 import UserMenu from "./user_menu";
 import { createClient } from "@/utils/supabase/client";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
 
 export default function Navbar() {
+  // todo: add user type and remove "any" comment below
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [user, setUser] = useState<any | null>(null);
 
   useEffect(() => {
@@ -41,6 +35,7 @@ export default function Navbar() {
       }
     );
 
+    // on unmount, unsubscribe the listener
     return () => {
       authListener.subscription.unsubscribe();
     };
@@ -58,7 +53,7 @@ export default function Navbar() {
             <Bell size={20} />
           </button>
           <div>
-            {user ? (
+            {user !== null ? (
               <>
                 <Popover>
                   <PopoverTrigger asChild>
