@@ -1,6 +1,4 @@
-/**
- * AuthForm component to render either a sign up or sign in instead of having two separate components
- */
+"use client";
 
 import { signUpAction, signInAction } from "@/utils/supabase/supabase.actions";
 import { SubmitButton } from "@/components/submit-button";
@@ -9,14 +7,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import OAuthButtons from "./OAuthButtons";
+import { useSearchParams } from "next/navigation";
 
 interface AuthFormType {
   type: "Sign In" | "Sign Up";
-  searchParams?: { message: string };
 }
 
-export const AuthForm: React.FC<AuthFormType> = ({ searchParams, type }) => {
+export const AuthForm: React.FC<AuthFormType> = ({ type }) => {
+  const searchParams = useSearchParams();
   const isSignUp = type === "Sign Up";
+
+  const message = searchParams?.get("message");
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f2e9de] p-4">
@@ -79,9 +80,9 @@ export const AuthForm: React.FC<AuthFormType> = ({ searchParams, type }) => {
           <div className="flex flex-col">
             <OAuthButtons />
           </div>
-          {searchParams?.message && (
-            <p className="text-sm md:text-lg font-medium text-red-600">
-              {searchParams.message}
+          {message && (
+            <p className="text-sm md:text-base font-medium text-red-600">
+              {message}
             </p>
           )}
         </div>
