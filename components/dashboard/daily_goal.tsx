@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { CardContent, CardHeader, CardTitle } from "../ui/card";
 import { BarChart2 } from "lucide-react";
@@ -45,8 +46,6 @@ export default function DailyGoal() {
 
     fetchData();
   }, [task]); // Only run the effect once when the component mounts
-
-  console.log(task);
 
   return (
     <div>
