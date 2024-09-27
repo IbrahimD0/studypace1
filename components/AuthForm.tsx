@@ -2,13 +2,13 @@
  * AuthForm component to render either a sign up or sign in instead of having two separate components
  */
 
-import { signUpAction, signInAction } from "@/app/actions";
+import { signUpAction, signInAction } from "@/utils/supabase/supabase.actions";
 import { SubmitButton } from "@/components/submit-button";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import OAuthButtons from "./OAuthButtons";
 
 interface AuthFormType {
   type: "Sign In" | "Sign Up";
@@ -77,13 +77,12 @@ export const AuthForm: React.FC<AuthFormType> = ({ searchParams, type }) => {
 
           {/* Social login buttons */}
           <div className="flex flex-col">
-            <Button className="my-2">Google</Button>
-            <Button>Github</Button>
+            <OAuthButtons />
           </div>
           {searchParams?.message && (
-            <div className="text-sm font-medium text-destructive">
+            <p className="text-sm md:text-lg font-medium text-red-600">
               {searchParams.message}
-            </div>
+            </p>
           )}
         </div>
 
