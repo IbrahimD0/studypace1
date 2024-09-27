@@ -28,7 +28,7 @@ export const getSessionsForLast7Days = async (userId: string) => {
 export const getTasksBySessionIds = async (sessionIds: string[]) => {
   const { data, error } = await supabase
     .from("Task")
-    .select("start_time, end_time, session_id")
+    .select("start_time, end_time, session_id, created_at")
     .in("session_id", sessionIds); // Filter tasks by session IDs
 
   if (error) throw error;
