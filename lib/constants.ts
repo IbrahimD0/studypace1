@@ -1,7 +1,7 @@
-import DailyGoal from "@/components/dashboard/daily_goal";
-import WeeklyOverview from "@/components/dashboard/weekly_overview";
-import RecentTopics from "@/components/dashboard/recent_topics";
-import ProductivityStats from "@/components/dashboard/productivity_stats";
+import DailyGoal from "@/components/dashboard/DailyGoal";
+import WeeklyOverview from "@/components/dashboard/WeeklyOverview";
+import RecentTopics from "@/components/dashboard/RecentTopics";
+import ProductivityStats from "@/components/dashboard/ProductivityStats";
 
 export const weekDays: { id: number; name: string }[] = [
   { id: 1, name: "Mon" },
