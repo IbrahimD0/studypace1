@@ -4,6 +4,7 @@ import CurrentSession from "@/components/dashboard/current_session";
 import { LockedCard } from "@/components/LockedCard";
 import { User } from "@supabase/supabase-js";
 import { DashboardConent } from "@/lib/constants";
+import Navbar from "./navbar";
 
 interface HomePageProps {
   isLoggedIn: boolean;
@@ -13,6 +14,7 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ isLoggedIn, userId }) => {
   return (
     <div className="min-h-screen bg-[#f2e9de] p-8 font-sans">
+      <Navbar /> {/* Add the Nav component here */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <Card className="bg-[#1d2d35] text-[#f9f4e8] col-span-full lg:col-span-1">
           <CurrentSession />
