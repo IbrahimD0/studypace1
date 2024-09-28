@@ -30,7 +30,8 @@ const DailyGoal = ({ userId }: { userId?: string }) => {
       // Fetch sessions for the last 7 days based on user ID
       const userSessions = await getSessionsForLast7Days(data?.id);
       if (!userSessions) return;
-      const getSessionIds = userSessions?.map((session) => session.id);
+
+      const getSessionIds = userSessions.map((session) => session.id);
 
       // Fetch tasks based on session IDs
       const tasks = await getTasksBySessionIds(getSessionIds);
@@ -39,13 +40,13 @@ const DailyGoal = ({ userId }: { userId?: string }) => {
       // Update state with tasks
       setTasks(tasks);
 
-      // Calculate the streak based on the fetched tasks and update the streak state
-      const streakValue = calculateStreak(task); // Pass tasks to calculateStreak
+      // Calculate the streak based on the fetched tasks
+      const streakValue = calculateStreak(tasks); // Use fetched tasks instead of state
       setStreak(streakValue);
     };
 
     fetchData();
-  }, [task]); // Only run the effect once when the component mounts
+  }, []); // Run only once when the component mounts
 
   return (
     <div>
@@ -76,6 +77,16 @@ const DailyGoal = ({ userId }: { userId?: string }) => {
             day streak
           </span>
         </div>
+
+        {/* Optional: Render task details if needed */}
+        {/* ! TEST ! */}
+        <ul>
+          {task.map((t) => (
+            <li key={t.session_id}>
+              {t.start_time} - {t.end_time}
+            </li>
+          ))}
+        </ul>
       </CardContent>
     </div>
   );
