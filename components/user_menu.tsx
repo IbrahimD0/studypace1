@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { HelpCircle, LogOut, Settings, User } from "lucide-react";
-import { signOutAction } from "@/app/actions";
+import { signOutAction } from "@/utils/supabase/supabase.actions";
 
 export default function UserMenu() {
   return (
