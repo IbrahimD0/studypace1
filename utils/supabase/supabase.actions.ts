@@ -72,7 +72,7 @@ export const signInAction = async (formData: FormData) => {
   }
 
   revalidatePath("/", "layout");
-  redirect("/protected");
+  redirect("/");
 };
 
 // Handles password reset requests by sending a reset link to the user's email
