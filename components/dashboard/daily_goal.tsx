@@ -17,7 +17,7 @@ export type TaskDetails = {
   session_id: string;
 };
 
-export default function DailyGoal() {
+const DailyGoal = ({ userId }: { userId?: string }) => {
   const [task, setTasks] = useState<TaskDetails[]>([]);
   const [streak, setStreak] = useState<number>(0);
 
@@ -79,4 +79,6 @@ export default function DailyGoal() {
       </CardContent>
     </div>
   );
-}
+};
+
+export default DailyGoal;
