@@ -28,3 +28,5 @@ const WeeklyOverview = ({ userId }: { userId?: string }) => {
     </div>
   );
 };
+
+export default WeeklyOverview;
