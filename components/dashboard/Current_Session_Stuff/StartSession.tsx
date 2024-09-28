@@ -15,12 +15,7 @@ import {
   Trophy,
 } from "lucide-react";
 import confetti from "canvas-confetti";
-import {
-  createSessionWithTasks,
-  getLastSession,
-  getSessionTasks,
-  getUser,
-} from "@/utils/supabase/update_info";
+import { createSessionWithTasks, getUser } from "@/utils/supabase/update_info";
 
 interface Task {
   id: string;
@@ -37,7 +32,7 @@ interface LocalSession {
   duration: number;
 }
 
-export default function StudySession() {
+const StudySession = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([
     { id: crypto.randomUUID(), content: "", status: "todo" },
@@ -307,6 +302,8 @@ export default function StudySession() {
           </Button>
         </form>
       )}
+
+      {/* If Studing is in Progress then do this */}
       {isStudying && (
         <div className="space-y-6 w-full max-w-md">
           <h2 className="text-4xl font-semibold text-center">
@@ -382,11 +379,13 @@ export default function StudySession() {
           </div>
         </div>
       )}
+
+      {/* If Studing is Finished then do this */}
       {isFinished && (
         <div className="text-center space-y-6 w-full max-w-md">
           <h2 className="text-3xl font-bold">Congratulations!</h2>
           <Trophy className="w-24 h-24 mx-auto text-yellow-500" />
-          <p className="text-xl">You've completed your study session.</p>
+          <p className="text-xl">You&apos;ve completed your study session.</p>
           <div className="flex justify-center space-x-4">
             <Badge variant="secondary" className="text-lg py-2 px-4">
               Streak: {streak} 🔥
@@ -429,4 +428,6 @@ export default function StudySession() {
       )}
     </div>
   );
-}
+};
+
+export default StudySession;

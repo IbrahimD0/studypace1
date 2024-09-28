@@ -17,7 +17,7 @@ export type TaskDetails = {
   session_id: string;
 };
 
-export default function DailyGoal() {
+const DailyGoal = ({ userId }: { userId?: string }) => {
   const [task, setTasks] = useState<TaskDetails[]>([]);
   const [streak, setStreak] = useState<number>(0);
 
@@ -30,7 +30,8 @@ export default function DailyGoal() {
       // Fetch sessions for the last 7 days based on user ID
       const userSessions = await getSessionsForLast7Days(data?.id);
       if (!userSessions) return;
-      const getSessionIds = userSessions?.map((session) => session.id);
+
+      const getSessionIds = userSessions.map((session) => session.id);
 
       // Fetch tasks based on session IDs
       const tasks = await getTasksBySessionIds(getSessionIds);
@@ -39,13 +40,13 @@ export default function DailyGoal() {
       // Update state with tasks
       setTasks(tasks);
 
-      // Calculate the streak based on the fetched tasks and update the streak state
-      const streakValue = calculateStreak(task); // Pass tasks to calculateStreak
+      // Calculate the streak based on the fetched tasks
+      const streakValue = calculateStreak(tasks); // Use fetched tasks instead of state
       setStreak(streakValue);
     };
 
     fetchData();
-  }, [task]); // Only run the effect once when the component mounts
+  }, []); // Run only once when the component mounts
 
   return (
     <div>
@@ -79,4 +80,6 @@ export default function DailyGoal() {
       </CardContent>
     </div>
   );
-}
+};
+
+export default DailyGoal;
