@@ -21,7 +21,7 @@ export const AuthForm: React.FC<AuthFormType> = ({ type }) => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f2e9de] p-4">
-      <Card className="flex flex-col justify-between gap-4 md:min-w-[500px] md:min-h-[600px] p-8 bg-[#1d2d35] text-[#f2e9de] border-[#c4a484] shadow-lg">
+      <Card className="flex flex-col justify-between gap-4 md:min-w-[500px] md:min-h-[560px] p-8 bg-[#1d2d35] text-[#f2e9de] border-[#c4a484] shadow-lg">
         <div className="text-center">
           <h1 className="text-2xl font-semibold">
             {isSignUp ? "Sign up for StudyPace" : "Sign in to StudyPace"}
@@ -77,15 +77,17 @@ export const AuthForm: React.FC<AuthFormType> = ({ type }) => {
           </form>
 
           {/* Social login buttons */}
-          <div className="flex flex-col">
+          <div className="flex flex-row justify-center gap-2">
             <OAuthButtons />
           </div>
-          {message && (
-            <p className="text-sm md:text-base font-medium text-red-600">
-              {message}
-            </p>
-          )}
         </div>
+
+        {/* Custom Error message if there exists one */}
+        {message && (
+          <p className="text-sm md:text-base text-center font-medium text-red-600">
+            {message}
+          </p>
+        )}
 
         <div className="text-center text-sm">
           <span className="text-[#f2e9de] opacity-80">
