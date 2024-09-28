@@ -77,16 +77,6 @@ const DailyGoal = ({ userId }: { userId?: string }) => {
             day streak
           </span>
         </div>
-
-        {/* Optional: Render task details if needed */}
-        {/* ! TEST ! */}
-        <ul>
-          {task.map((t) => (
-            <li key={t.session_id}>
-              {t.start_time} - {t.end_time}
-            </li>
-          ))}
-        </ul>
       </CardContent>
     </div>
   );
