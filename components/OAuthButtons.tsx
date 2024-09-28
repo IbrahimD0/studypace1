@@ -27,6 +27,12 @@ const OAuthButtons = () => {
       displayName: "Google",
       icon: "/google.png",
     },
+    {
+      id: 3,
+      name: "discord",
+      displayName: "Discord",
+      icon: "/discord.png",
+    },
   ];
   return (
     <>
