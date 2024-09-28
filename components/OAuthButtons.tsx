@@ -46,7 +46,7 @@ const OAuthButtons = () => {
           variant={"default"}
           onClick={async () => await oAuthSignIn(provider.name)}
           key={provider.id}
-          className={`mt-2 flex items-center justify-center gap-2 ${provider.name === "github" ? "text-white" : "text-black"}`}
+          className={`w-full mt-2 flex items-center justify-center gap-2 ${provider.name === "github" ? "text-white" : "text-black"}`}
           style={{ backgroundColor: provider.color }} // Inline style for dynamic background color
         >
           <Image
