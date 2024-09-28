@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { CardContent, CardHeader, CardTitle } from "../ui/card";
+import { CardContent, CardHeader, CardTitle } from "../../ui/card";
 import { Clock } from "lucide-react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Button } from "../ui/button";
-import StartStudySession from "../start_session/start_session";
+import { Button } from "../../ui/button";
+import StartStudySession from "./StartSession";
 
 export default function CurrentSession() {
   const [hasActiveSession, setHasActiveSession] = useState(false);
