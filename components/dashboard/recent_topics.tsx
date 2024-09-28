@@ -2,7 +2,7 @@ import React from "react";
 import { CardContent, CardHeader, CardTitle } from "../ui/card";
 import { BookOpen } from "lucide-react";
 
-export default function RecentTopics() {
+const RecentTopics = ({ userId }: { userId?: string }) => {
   return (
     <div>
       <CardHeader>
@@ -29,4 +29,6 @@ export default function RecentTopics() {
       </CardContent>
     </div>
   );
-}
+};
+
+export default RecentTopics;
