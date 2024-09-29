@@ -248,12 +248,12 @@ const StudySession = () => {
 
   return (
     <div
-      className={`p-6 bg-[#f2e8dc] text-[#2c3e50] flex flex-col items-center justify-center min-h-96 ${isOpen ? "blur-sm" : ""}`}
+      className={`text-[#2c3e50] flex flex-col items-center justify-center ${isOpen && "blur-sm"}`}
     >
       {!isStudying && !isFinished && (
         <form onSubmit={handleStartStudy} className="space-y-6 w-full max-w-md">
           <div>
-            <h2 className="text-4xl font-semibold mb-4">
+            <h2 className="text-2xl sm:text-4xl text-center font-extrabold mb-2 sm:mb-8">
               Set Your Study Tasks
             </h2>
             {tasks.map((task, index) => (
@@ -270,7 +270,7 @@ const StudySession = () => {
               type="button"
               onClick={handleAddTask}
               variant="outline"
-              className="mt-2 bg-[#2c3e50] text-white"
+              className="mt-2 bg-[#2c3e50]  hover:bg-[#1f2a36] text-white"
             >
               Add Task
             </Button>
@@ -307,7 +307,7 @@ const StudySession = () => {
           </div>
           <Button
             type="submit"
-            className="bg-[#8b7355] text-[#f2e8dc] hover:bg-[#6d5a43] w-full"
+            className="bg-[#2c3e50]  text-white hover:bg-[#1f2a36] w-full"
           >
             Start Study Session
           </Button>

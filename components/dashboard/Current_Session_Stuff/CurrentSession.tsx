@@ -7,7 +7,6 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../../ui/button";
 import StartStudySession from "./StartSession";
 
-
 export default function CurrentSession() {
   const [hasActiveSession, setHasActiveSession] = useState(false);
   const [open, setOpen] = useState(false);
@@ -15,18 +14,17 @@ export default function CurrentSession() {
     // Check if there's an active session in localStorage
     const storedSession = localStorage.getItem("currentSession");
     setHasActiveSession(!!storedSession);
-  }, [hasActiveSession,open]);
+  }, [hasActiveSession, open]);
 
   return (
-    <Dialog open = {open} onOpenChange={setOpen}>
-      <CardHeader >
+    <Dialog open={open} onOpenChange={setOpen}>
+      <CardHeader>
         <CardTitle className="text-lg font-medium flex items-center ">
           <Clock className="w-5 h-5 mr-2" />
           Current Session
         </CardTitle>
       </CardHeader>
       <CardContent>
-      
         {hasActiveSession ? (
           <>
             <h2 className="text-3xl font-bold mb-4">
@@ -50,7 +48,7 @@ export default function CurrentSession() {
         )}
       </CardContent>
 
-      <DialogContent className="max-w-4xl w-11/12 max-h-[90vh] overflow-y-auto bg-[#f2e8dc]">
+      <DialogContent className="max-h-[90vh] overflow-auto bg-[#f2e8dc]">
         <StartStudySession />
       </DialogContent>
     </Dialog>
