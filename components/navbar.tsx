@@ -8,7 +8,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import UserMenu from "./user_menu";
+import UserMenu from "./UserMenu";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
 

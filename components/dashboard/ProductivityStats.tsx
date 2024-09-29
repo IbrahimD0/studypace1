@@ -2,10 +2,9 @@ import React from "react";
 import { CardContent, CardHeader, CardTitle } from "../ui/card";
 import { BarChart2 } from "lucide-react";
 
-export default function productivity_stats() {
+const ProductivityStats = ({ userId }: { userId?: string }) => {
   return (
     <div>
-      
       <CardHeader>
         <CardTitle className="text-lg font-medium flex items-center">
           <BarChart2 className="w-5 h-5 mr-2" />
@@ -36,4 +35,6 @@ export default function productivity_stats() {
       </CardContent>
     </div>
   );
-}
+};
+
+export default ProductivityStats;

@@ -3,7 +3,7 @@ import { CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Calendar } from "lucide-react";
 import { weekDays } from "@/lib/constants";
 
-export default function WeeklyOverview() {
+const WeeklyOverview = ({ userId }: { userId?: string }) => {
   return (
     <div>
       <CardHeader>
@@ -27,4 +27,6 @@ export default function WeeklyOverview() {
       </CardContent>
     </div>
   );
-}
+};
+
+export default WeeklyOverview;

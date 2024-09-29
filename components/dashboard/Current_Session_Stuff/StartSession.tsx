@@ -15,12 +15,7 @@ import {
   Trophy,
 } from "lucide-react";
 import confetti from "canvas-confetti";
-import {
-  createSessionWithTasks,
-  getLastSession,
-  getSessionTasks,
-  getUser,
-} from "@/utils/supabase/update_info";
+import { createSessionWithTasks, getUser } from "@/utils/supabase/update_info";
 
 interface Task {
   id: string;
@@ -35,9 +30,11 @@ interface LocalSession {
   tasks: Task[];
   startTime: string;
   duration: number;
+  hours: number;
+  minutes: number;
 }
 
-export default function StudySession() {
+const StudySession = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [tasks, setTasks] = useState<Task[]>([
     { id: crypto.randomUUID(), content: "", status: "todo" },
@@ -70,11 +67,14 @@ export default function StudySession() {
       setTasks(session.tasks);
       setIsStudying(true);
       setSessionStartTime(session.startTime);
+      setHours(session.hours);
+      setMinutes(session.minutes);
       const elapsedTime = Math.floor(
         (Date.now() - new Date(session.startTime).getTime()) / 1000
       );
-      setTotalStudyTime(elapsedTime);
-      setTimeLeft(Math.max(session.duration * 60 - elapsedTime, 0));
+      const totalSessionTime = session.hours * 3600 + session.minutes * 60;
+      setTimeLeft(Math.max(totalSessionTime - elapsedTime, 0));
+      setTotalStudyTime(Math.min(elapsedTime, totalSessionTime));
     }
   }, []);
 
@@ -98,6 +98,8 @@ export default function StudySession() {
         tasks,
         startTime: sessionStartTime,
         duration: Math.ceil(totalStudyTime / 60),
+        hours,
+        minutes,
       };
       localStorage.setItem("currentSession", JSON.stringify(session));
     }
@@ -124,11 +126,13 @@ export default function StudySession() {
     const filteredTasks = tasks.filter((task) => task.content.trim() !== "");
     const newSessionId = crypto.randomUUID();
     const startTime = new Date().toISOString();
+    const totalSeconds = hours * 3600 + minutes * 60;
+
     setSessionId(newSessionId);
     setSessionStartTime(startTime);
     setTasks(filteredTasks);
-    const totalMinutes = hours * 60 + minutes;
-    setTimeLeft(totalMinutes * 60);
+    setTimeLeft(totalSeconds);
+    setTotalStudyTime(0);
     setIsStudying(true);
     setStreak((prev) => prev + 1);
 
@@ -136,7 +140,9 @@ export default function StudySession() {
       id: newSessionId,
       tasks: filteredTasks,
       startTime: startTime,
-      duration: totalMinutes,
+      duration: totalSeconds,
+      hours,
+      minutes,
     };
     localStorage.setItem("currentSession", JSON.stringify(session));
   };
@@ -242,7 +248,7 @@ export default function StudySession() {
 
   return (
     <div
-      className={`p-6 bg-[#f2e8dc] text-[#2c3e50] flex flex-col items-center justify-center min-h-screen ${isOpen ? "blur-sm" : ""}`}
+      className={`p-6 bg-[#f2e8dc] text-[#2c3e50] flex flex-col items-center justify-center min-h-96 ${isOpen ? "blur-sm" : ""}`}
     >
       {!isStudying && !isFinished && (
         <form onSubmit={handleStartStudy} className="space-y-6 w-full max-w-md">
@@ -307,6 +313,8 @@ export default function StudySession() {
           </Button>
         </form>
       )}
+
+      {/* If Studing is in Progress then do this */}
       {isStudying && (
         <div className="space-y-6 w-full max-w-md">
           <h2 className="text-4xl font-semibold text-center">
@@ -382,11 +390,13 @@ export default function StudySession() {
           </div>
         </div>
       )}
+
+      {/* If Studing is Finished then do this */}
       {isFinished && (
         <div className="text-center space-y-6 w-full max-w-md">
           <h2 className="text-3xl font-bold">Congratulations!</h2>
           <Trophy className="w-24 h-24 mx-auto text-yellow-500" />
-          <p className="text-xl">You've completed your study session.</p>
+          <p className="text-xl">You&apos;ve completed your study session.</p>
           <div className="flex justify-center space-x-4">
             <Badge variant="secondary" className="text-lg py-2 px-4">
               Streak: {streak} 🔥
@@ -429,4 +439,6 @@ export default function StudySession() {
       )}
     </div>
   );
-}
+};
+
+export default StudySession;
