@@ -30,6 +30,8 @@ interface LocalSession {
   tasks: Task[];
   startTime: string;
   duration: number;
+  hours: number;
+  minutes: number;
 }
 
 const StudySession = () => {
@@ -65,11 +67,14 @@ const StudySession = () => {
       setTasks(session.tasks);
       setIsStudying(true);
       setSessionStartTime(session.startTime);
+      setHours(session.hours);
+      setMinutes(session.minutes);
       const elapsedTime = Math.floor(
         (Date.now() - new Date(session.startTime).getTime()) / 1000
       );
-      setTotalStudyTime(elapsedTime);
-      setTimeLeft(Math.max(session.duration * 60 - elapsedTime, 0));
+      const totalSessionTime = session.hours * 3600 + session.minutes * 60;
+      setTimeLeft(Math.max(totalSessionTime - elapsedTime, 0));
+      setTotalStudyTime(Math.min(elapsedTime, totalSessionTime));
     }
   }, []);
 
@@ -93,6 +98,8 @@ const StudySession = () => {
         tasks,
         startTime: sessionStartTime,
         duration: Math.ceil(totalStudyTime / 60),
+        hours,
+        minutes,
       };
       localStorage.setItem("currentSession", JSON.stringify(session));
     }
@@ -119,11 +126,13 @@ const StudySession = () => {
     const filteredTasks = tasks.filter((task) => task.content.trim() !== "");
     const newSessionId = crypto.randomUUID();
     const startTime = new Date().toISOString();
+    const totalSeconds = hours * 3600 + minutes * 60;
+
     setSessionId(newSessionId);
     setSessionStartTime(startTime);
     setTasks(filteredTasks);
-    const totalMinutes = hours * 60 + minutes;
-    setTimeLeft(totalMinutes * 60);
+    setTimeLeft(totalSeconds);
+    setTotalStudyTime(0);
     setIsStudying(true);
     setStreak((prev) => prev + 1);
 
@@ -131,7 +140,9 @@ const StudySession = () => {
       id: newSessionId,
       tasks: filteredTasks,
       startTime: startTime,
-      duration: totalMinutes,
+      duration: totalSeconds,
+      hours,
+      minutes,
     };
     localStorage.setItem("currentSession", JSON.stringify(session));
   };
@@ -237,7 +248,7 @@ const StudySession = () => {
 
   return (
     <div
-      className={`p-6 bg-[#f2e8dc] text-[#2c3e50] flex flex-col items-center justify-center min-h-screen ${isOpen ? "blur-sm" : ""}`}
+      className={`p-6 bg-[#f2e8dc] text-[#2c3e50] flex flex-col items-center justify-center min-h-96 ${isOpen ? "blur-sm" : ""}`}
     >
       {!isStudying && !isFinished && (
         <form onSubmit={handleStartStudy} className="space-y-6 w-full max-w-md">

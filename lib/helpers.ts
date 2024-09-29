@@ -1,4 +1,4 @@
-import { TaskDetails } from "@/components/dashboard/daily_goal";
+import { TaskDetails } from "@/components/dashboard/DailyGoal";
 
 export const calculateStreak = (tasks: TaskDetails[]): number => {
   let streak = 0;

@@ -7,24 +7,26 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "../../ui/button";
 import StartStudySession from "./StartSession";
 
+
 export default function CurrentSession() {
   const [hasActiveSession, setHasActiveSession] = useState(false);
-
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     // Check if there's an active session in localStorage
     const storedSession = localStorage.getItem("currentSession");
     setHasActiveSession(!!storedSession);
-  }, [hasActiveSession]);
+  }, [hasActiveSession,open]);
 
   return (
-    <Dialog>
-      <CardHeader>
+    <Dialog open = {open} onOpenChange={setOpen}>
+      <CardHeader >
         <CardTitle className="text-lg font-medium flex items-center ">
           <Clock className="w-5 h-5 mr-2" />
           Current Session
         </CardTitle>
       </CardHeader>
       <CardContent>
+      
         {hasActiveSession ? (
           <>
             <h2 className="text-3xl font-bold mb-4">
